@@ -10,6 +10,27 @@ Vulkanize is a cross-platform utility that enables Vulkan graphics rendering on 
 
 **Note on Device Compatibility:** While Vulkanize is primarily focused on S23 devices due to specific One UI 7 changes, the underlying Vulkan enablement scripts can potentially work on other Android devices. However, users trying this on non-S23 devices do so at their own risk. See the [Technical Details](#device-compatibility-and-wider-applicability) section for more information.
 
+## Table of Contents
+- [🚀 Features](#-features)
+- [🆕 Latest Enhancements](#-latest-enhancements)
+- [📋 Requirements](#-requirements)
+- [📥 Installation](#-installation)
+  - [Quick Start](#quick-start)
+  - [Windows](#windows)
+  - [macOS](#macos)
+  - [Linux](#linux)
+- [📱 Usage](#-usage)
+  - [Interactive Mode](#interactive-mode)
+  - [Command Line Mode](#command-line-mode)
+- [🔍 Verification](#-verification)
+- [⚠️ Known Issues](#️-known-issues)
+- [📚 Technical Details](#-technical-details)
+  - [Device Compatibility and Wider Applicability](#device-compatibility-and-wider-applicability)
+- [📈 Performance Improvements](#-performance-improvements)
+- [🤝 Contributing](#-contributing)
+- [📜 License](#-license)
+- [🙏 Acknowledgements](#-acknowledgements)
+- [⚠️ Disclaimer](#️-disclaimer)
 
 ## 🚀 Features
 

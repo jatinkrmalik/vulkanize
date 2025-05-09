@@ -24,15 +24,6 @@ Before installing Vulkanize, ensure you have:
 
 ## Windows Installation
 
-### Method 1: Using the Installer (Recommended)
-
-1. Download the latest Windows installer from the [Releases](https://github.com/jatinkrmalik/vulkanize/releases) page
-2. Run the installer and follow the on-screen instructions
-3. The installer will create a shortcut on your desktop and start menu
-4. Connect your device via USB and run Vulkanize
-
-### Method 2: Manual Installation
-
 1. Download the latest ZIP archive for Windows from the [Releases](https://github.com/jatinkrmalik/vulkanize/releases) page
 2. Extract the archive to a location of your choice
 3. Connect your device via USB
@@ -59,24 +50,6 @@ Both methods are explained in detail within the script itself.
 
 ## macOS Installation
 
-### Method 1: Using Homebrew
-
-```bash
-# Install Homebrew if you don't have it
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Tap the Vulkanize repository
-brew tap jatinkrmalik/vulkanize
-
-# Install Vulkanize
-brew install vulkanize
-
-# Run Vulkanize
-vulkanize
-```
-
-### Method 2: Manual Installation
-
 1. Download the latest macOS archive from the [Releases](https://github.com/jatinkrmalik/vulkanize/releases) page
 2. Extract the archive to a location of your choice
 3. Open Terminal and navigate to the extracted directory
@@ -89,9 +62,9 @@ vulkanize
    ./scripts/mac/vulkan-enabler.sh
    ```
 6. The script has enhanced capabilities to automatically install:
-   - Homebrew (if not found) - the package manager for macOS
-   - ADB (via Homebrew once installed)
-   - Additionally, it can automatically configure PATH settings in your shell profile
+   - Homebrew (if not found) - the package manager for macOS, used here to help install ADB
+   - ADB (via Homebrew once Homebrew is installed by the script)
+   - Additionally, it can automatically configure PATH settings in your shell profile for ADB.
 
 ### Automatic Environment Setup in macOS
 
@@ -116,22 +89,6 @@ The enhanced macOS script now provides:
 This means you can now run the script on a fresh macOS installation with minimal manual intervention.
 
 ## Linux Installation
-
-### Method 1: Using Package Manager (Debian/Ubuntu)
-
-```bash
-# Add the Vulkanize repository
-sudo add-apt-repository ppa:jatinkrmalik/vulkanize
-sudo apt-get update
-
-# Install Vulkanize
-sudo apt-get install vulkanize
-
-# Run Vulkanize
-vulkanize
-```
-
-### Method 2: Manual Installation
 
 1. Download the latest Linux archive from the [Releases](https://github.com/jatinkrmalik/vulkanize/releases) page
 2. Extract the archive to a location of your choice
