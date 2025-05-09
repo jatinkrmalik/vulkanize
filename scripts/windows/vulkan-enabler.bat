@@ -32,10 +32,29 @@ if %errorlevel% neq 0 (
             echo.
             goto ADB_INSTALLED
         ) else (
-            echo Automatic installation failed.
+            echo Automatic installation via winget failed.
         )
     ) else (
         echo Windows Package Manager (winget) not found.
+    )
+    
+    :: Try direct download method
+    echo.
+    echo Would you like to automatically download and install Android Platform Tools? (Y/N)
+    set /p DOWNLOAD_CHOICE="> "
+    if /i "!DOWNLOAD_CHOICE!"=="Y" (
+        call :DOWNLOAD_AND_INSTALL_ADB
+        :: Check if installation was successful
+        where adb >nul 2>&1
+        if !errorlevel! equ 0 (
+            echo Android Platform Tools installed successfully!
+            echo.
+            goto ADB_INSTALLED
+        ) else (
+            echo Automatic installation failed.
+        )
+    ) else (
+        echo Automatic download declined.
     )
     
     :: If automatic installation failed, show manual instructions
@@ -304,3 +323,64 @@ echo Press any key to exit...
 pause >nul
 endlocal
 exit /b 0
+
+:DOWNLOAD_AND_INSTALL_ADB
+echo.
+echo Downloading Android Platform Tools from Google's official site...
+echo URL: https://dl.google.com/android/repository/platform-tools-latest-windows.zip
+echo.
+
+:: Create a temporary directory
+set "TEMP_DIR=%TEMP%\vulkanize_temp"
+mkdir "%TEMP_DIR%" 2>nul
+
+:: Download the zip file using PowerShell
+echo Downloading... Please wait...
+powershell -Command "& {[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -Uri 'https://dl.google.com/android/repository/platform-tools-latest-windows.zip' -OutFile '%TEMP_DIR%\platform-tools.zip'}"
+if %errorlevel% neq 0 (
+    echo Failed to download the file. Please check your internet connection.
+    rmdir /s /q "%TEMP_DIR%" 2>nul
+    return 1
+)
+
+:: Extract the zip file
+echo Extracting files...
+powershell -Command "& {Expand-Archive -Path '%TEMP_DIR%\platform-tools.zip' -DestinationPath '%TEMP_DIR%' -Force}"
+if %errorlevel% neq 0 (
+    echo Failed to extract the zip file.
+    rmdir /s /q "%TEMP_DIR%" 2>nul
+    return 1
+)
+
+:: Create a permanent installation directory
+set "INSTALL_DIR=%USERPROFILE%\platform-tools"
+echo Installing to: %INSTALL_DIR%
+mkdir "%INSTALL_DIR%" 2>nul
+xcopy /E /I /Y "%TEMP_DIR%\platform-tools\*" "%INSTALL_DIR%" >nul
+if %errorlevel% neq 0 (
+    echo Failed to copy files.
+    rmdir /s /q "%TEMP_DIR%" 2>nul
+    return 1
+)
+
+:: Add to PATH temporarily for this session
+echo Adding to PATH temporarily for this session...
+set "PATH=%PATH%;%INSTALL_DIR%"
+
+:: Add to PATH permanently
+echo Adding to PATH permanently...
+setx PATH "%PATH%;%INSTALL_DIR%" >nul
+if %errorlevel% neq 0 (
+    echo Warning: Failed to update PATH environment variable permanently.
+    echo The ADB command will work for this session, but you may need to add
+    echo %INSTALL_DIR% to your PATH manually for future use.
+)
+
+:: Clean up temporary files
+echo Cleaning up temporary files...
+rmdir /s /q "%TEMP_DIR%" 2>nul
+
+echo.
+echo Android Platform Tools has been installed to: %INSTALL_DIR%
+echo.
+return 0

@@ -20,10 +20,16 @@ This document provides solutions to common issues you might encounter when using
   - Make sure you have Windows Package Manager (winget) installed
   - Try running the script as administrator
   - Check your internet connection
+- If direct download method fails:
+  - Ensure your computer has internet access
+  - Make sure Windows Defender or other security software is not blocking downloads
+  - Try running the script as administrator
+  - Ensure PowerShell is available on your system
+  - Try setting your PowerShell execution policy to allow scripts: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+- If all automatic methods fail:
   - Try installing ADB manually by downloading from [Google's platform tools page](https://developer.android.com/studio/releases/platform-tools)
-- Check if you have administrator privileges
-- Temporarily disable antivirus software
-- Check if Windows Defender is blocking the download/execution
+  - Restart your computer after adding ADB to the PATH
+  - Temporarily disable antivirus software
 
 **macOS:**
 - If Homebrew installation fails, try updating Homebrew first: `brew update`
