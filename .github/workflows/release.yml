@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write # Allows creating releases and committing files
+
 jobs:
   build:
     name: Create Release Packages
