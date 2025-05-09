@@ -10,7 +10,7 @@ Please note that this project is released with a Contributor Code of Conduct. By
 
 ### Reporting Bugs
 
-If you've found a bug, please create an issue on our [GitHub Issues](https://github.com/yourusername/vulkanize/issues) page with the following information:
+If you've found a bug, please create an issue on our [GitHub Issues](https://github.com/jatinkrmalik/vulkanize/issues) page with the following information:
 
 - A clear, descriptive title
 - A detailed description of the issue
@@ -62,7 +62,7 @@ We welcome suggestions for improvements! When creating an enhancement suggestion
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/vulkanize.git
+   git clone https://github.com/jatinkrmalik/vulkanize.git
    cd vulkanize
    ```
 

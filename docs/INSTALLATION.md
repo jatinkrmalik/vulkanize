@@ -26,14 +26,14 @@ Before installing Vulkanize, ensure you have:
 
 ### Method 1: Using the Installer (Recommended)
 
-1. Download the latest Windows installer from the [Releases](https://github.com/yourusername/vulkanize/releases) page
+1. Download the latest Windows installer from the [Releases](https://github.com/jatinkrmalik/vulkanize/releases) page
 2. Run the installer and follow the on-screen instructions
 3. The installer will create a shortcut on your desktop and start menu
 4. Connect your device via USB and run Vulkanize
 
 ### Method 2: Manual Installation
 
-1. Download the latest ZIP archive for Windows from the [Releases](https://github.com/yourusername/vulkanize/releases) page
+1. Download the latest ZIP archive for Windows from the [Releases](https://github.com/jatinkrmalik/vulkanize/releases) page
 2. Extract the archive to a location of your choice
 3. Connect your device via USB
 4. Run the `vulkan-enabler.bat` file by double-clicking on it
@@ -48,7 +48,7 @@ Before installing Vulkanize, ensure you have:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Tap the Vulkanize repository
-brew tap yourusername/vulkanize
+brew tap jatinkrmalik/vulkanize
 
 # Install Vulkanize
 brew install vulkanize
@@ -59,7 +59,7 @@ vulkanize
 
 ### Method 2: Manual Installation
 
-1. Download the latest macOS archive from the [Releases](https://github.com/yourusername/vulkanize/releases) page
+1. Download the latest macOS archive from the [Releases](https://github.com/jatinkrmalik/vulkanize/releases) page
 2. Extract the archive to a location of your choice
 3. Open Terminal and navigate to the extracted directory
 4. Make the script executable:
@@ -78,7 +78,7 @@ vulkanize
 
 ```bash
 # Add the Vulkanize repository
-sudo add-apt-repository ppa:yourusername/vulkanize
+sudo add-apt-repository ppa:jatinkrmalik/vulkanize
 sudo apt-get update
 
 # Install Vulkanize
@@ -90,7 +90,7 @@ vulkanize
 
 ### Method 2: Manual Installation
 
-1. Download the latest Linux archive from the [Releases](https://github.com/yourusername/vulkanize/releases) page
+1. Download the latest Linux archive from the [Releases](https://github.com/jatinkrmalik/vulkanize/releases) page
 2. Extract the archive to a location of your choice
 3. Open Terminal and navigate to the extracted directory
 4. Make the script executable:
@@ -223,4 +223,4 @@ If you get permission errors when running the script:
 
 ### Still Having Issues?
 
-Check the [TROUBLESHOOTING.md](TROUBLESHOOTING.md) file for more detailed troubleshooting steps or open an issue on our [GitHub page](https://github.com/yourusername/vulkanize/issues).
+Check the [TROUBLESHOOTING.md](TROUBLESHOOTING.md) file for more detailed troubleshooting steps or open an issue on our [GitHub page](https://github.com/jatinkrmalik/vulkanize/issues).

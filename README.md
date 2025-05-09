@@ -1,14 +1,12 @@
 # Vulkanize
 
-![Vulkanize Banner](https://via.placeholder.com/800x200/0073cf/ffffff?text=Vulkanize)
-
 **Force Vulkan Graphics on Samsung S23 Devices Running One UI 7**
 
 Vulkanize is a cross-platform utility that enables Vulkan graphics rendering on Samsung S23 series devices. This can lead to significant performance improvements, reduced heat generation, and better battery life.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub release](https://img.shields.io/github/release/yourusername/vulkanize.svg)](https://github.com/yourusername/vulkanize/releases)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue.svg)](https://github.com/yourusername/vulkanize)
+[![GitHub release](https://img.shields.io/github/release/jatinkrmalik/vulkanize.svg)](https://github.com/jatinkrmalik/vulkanize/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue.svg)](https://github.com/jatinkrmalik/vulkanize)
 
 ## 🚀 Features
 
@@ -34,7 +32,7 @@ Vulkanize is a cross-platform utility that enables Vulkan graphics rendering on 
 
 ### Quick Start
 
-1. Download the latest release from the [Releases](https://github.com/yourusername/vulkanize/releases) page
+1. Download the latest release from the [Releases](https://github.com/jatinkrmalik/vulkanize/releases) page
 2. Extract the archive to a location of your choice
 3. Follow the platform-specific instructions below
 

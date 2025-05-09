@@ -205,4 +205,4 @@ If you're experiencing persistent issues, enable logging and analyze the log fil
    - **"Permission denied"**: Run the script with admin/root privileges
    - **"Failure [INSTALL_FAILED_USER_RESTRICTED]"**: Disable "Verify apps over USB" in Developer options
 
-If you're still experiencing issues, please [file an issue](https://github.com/yourusername/vulkanize/issues) with your log file and a detailed description of the problem.
+If you're still experiencing issues, please [file an issue](https://github.com/jatinkrmalik/vulkanize/issues) with your log file and a detailed description of the problem.
