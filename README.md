@@ -105,7 +105,8 @@ To verify that Vulkan is enabled:
 4. Open any app (like the dialer)
 5. Look for "Vulkan Renderer (skiavk)" in the overlay
 
-<img src="https://via.placeholder.com/300x600?text=Vulkan+Verification+Screenshot" width="300" alt="Vulkan Verification Screenshot">
+![image](https://github.com/user-attachments/assets/7ba3488f-21bb-4714-8e0d-d5c9aca4efd5)
+
 
 ## ⚠️ Known Issues
 
