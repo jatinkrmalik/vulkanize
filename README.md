@@ -4,6 +4,8 @@
 
 Vulkanize is a cross-platform utility that enables Vulkan graphics rendering on Samsung S23 series devices. This can lead to significant performance improvements, reduced heat generation, and better battery life.
 
+**Note on Device Compatibility:** While Vulkanize is primarily focused on S23 devices due to specific One UI 7 changes, the underlying Vulkan enablement scripts can potentially work on other Android devices. However, users trying this on non-S23 devices do so at their own risk. See the [Technical Details](#device-compatibility-and-wider-applicability) section for more information.
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub release](https://img.shields.io/github/release/jatinkrmalik/vulkanize.svg)](https://github.com/jatinkrmalik/vulkanize/releases)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue.svg)](https://github.com/jatinkrmalik/vulkanize)
@@ -144,15 +146,42 @@ To verify that Vulkan is enabled:
 
 - The Vulkan setting reverts after device reboot - run the script again to re-enable
 - Some apps may display visual artifacts when using Vulkan
-- Some apps may not run correctly under Vulkan
+- Some apps may not run correctly under Vulkan on all devices
 - Default browser and keyboard settings may reset
 - Possible loss of WiFi-Calling/VoLTE (fix by toggling SIM in settings)
+- On non-S23 devices, older processors may experience increased battery consumption and bugs. AOSP ROMs are not recommended for some methods.
 
 For troubleshooting and solutions, see [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
 
 ## 📚 Technical Details
 
 Vulkanize works by setting the `debug.hwui.renderer` property to `skiavk`, which forces the system to use Vulkan instead of OpenGL ES for rendering. The script then forces key system components to restart to apply the new setting.
+
+### Device Compatibility and Wider Applicability
+
+The Vulkan enablement scripts aren't exclusively for S23 phones, though they've become particularly relevant for these devices due to Samsung's specific decisions with One UI 7.
+
+**Why S23 Is the Focus:**
+The scripts are primarily discussed in the context of S23 devices because:
+- One UI 7 specifically reverted S23 devices from Vulkan (which was briefly used in Beta 1) back to OpenGL as the default graphics renderer.
+- This change caused notable performance issues, heating problems, and reduced battery life specifically on S23 devices.
+- The community response has been particularly strong from S23 users who experienced better performance during the beta period when Vulkan was enabled.
+
+**Applicability to Other Devices:**
+This fix can potentially work on other Android devices with some important considerations:
+- **Samsung Galaxy Devices:** The methods described can work on many Samsung Galaxy devices beyond just the S23 series.
+- **Android Version Requirements:** Vulkan is available on Android from Android 7 (API level 24) and up, with all 64-bit devices from Android 10 supporting Vulkan 1.1.
+- **Hardware Requirements:** Performance benefits are more noticeable on devices with more powerful processors (Snapdragon 888 or better is recommended).
+- **Device-Specific Variations:** While the basic ADB commands (like `setprop debug.hwui.renderer skiavk`) are similar across devices, the specific apps that need to be force-stopped might vary.
+
+**Warnings for Non-S23 Devices:**
+If you try this on other devices:
+- Older processors may experience increased battery consumption and bugs.
+- AOSP ROMs (non-Samsung Android) are not recommended for some of these methods.
+- Not all apps will run properly under Vulkan on all devices.
+- The change will revert after rebooting, regardless of device type.
+
+The focus on S23 devices mainly reflects where the problem is most acute, rather than a technical limitation of the solution itself.
 
 For more technical information, see [TECHNICAL.md](docs/TECHNICAL.md).
 

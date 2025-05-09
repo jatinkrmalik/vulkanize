@@ -149,9 +149,10 @@ If you have multiple Android devices connected:
      ```
 
 4. **Device Compatibility:**
-   - Ensure you're using a Samsung S23, S23+, S23 Ultra, or S23 FE
-   - Check if your device is running One UI 7
-   - Some system updates may affect compatibility
+   - Ensure you're using a Samsung S23, S23+, S23 Ultra, or S23 FE for optimal results as described in the main README and TECHNICAL.md.
+   - While the script might work on other devices, it's tested and optimized for the S23 series running One UI 7.
+   - Some system updates may affect compatibility.
+   - For non-S23 devices, refer to the warnings in README.md and TECHNICAL.md regarding potential issues like increased battery consumption on older processors or problems with AOSP ROMs.
 
 ### Script Crashes or Hangs
 
@@ -170,8 +171,8 @@ If you have multiple Android devices connected:
 ### App Crashes or UI Issues
 
 1. **Normal Behavior:**
-   - Some visual artifacts in certain apps are normal
-   - Some apps may not support Vulkan rendering
+   - Some visual artifacts in certain apps are normal, especially on non-S23 devices or those with older hardware.
+   - Some apps may not support Vulkan rendering well on all hardware configurations.
 
 2. **Keyboard Issues:**
    - If Gboard/Samsung Keyboard doesn't work, try manually opening it
@@ -194,6 +195,7 @@ If you have multiple Android devices connected:
 2. **Usage Patterns:**
    - Battery improvement is most noticeable in graphics-intensive applications
    - Background processes or poor signal may overshadow the improvement
+   - On non-S23 devices, particularly those with older processors, you might experience increased battery consumption.
 
 3. **Wait for Cache Building:**
    - The first few hours after enabling Vulkan may show worse battery life while the system builds shader caches

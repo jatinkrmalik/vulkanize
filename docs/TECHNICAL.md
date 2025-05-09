@@ -93,6 +93,33 @@ Vulkanize is specifically designed for and tested on:
 - Samsung Galaxy S23 Ultra
 - Samsung Galaxy S23 FE
 
+While the scripts are optimized for the S23 series, the underlying method of enabling Vulkan by setting the `debug.hwui.renderer` property to `skiavk` is a standard Android feature and may work on other devices.
+
+### Why S23 is the Primary Focus
+
+The scripts are primarily discussed in the context of S23 devices because:
+- One UI 7 specifically reverted S23 devices from Vulkan (which was briefly used in Beta 1) back to OpenGL as the default graphics renderer.
+- This change caused notable performance issues, heating problems, and reduced battery life specifically on S23 devices.
+- The community response has been particularly strong from S23 users who experienced better performance during the beta period when Vulkan was enabled.
+
+### Applicability to Other Devices
+
+This fix can potentially work on other Android devices with some important considerations:
+- **Samsung Galaxy Devices:** The methods described can work on many Samsung Galaxy devices beyond just the S23 series.
+- **Android Version Requirements:** Vulkan is available on Android from Android 7 (API level 24) and up, with all 64-bit devices from Android 10 supporting Vulkan 1.1.
+- **Hardware Requirements:** Performance benefits are more noticeable on devices with more powerful processors (Snapdragon 888 or better is recommended).
+- **Device-Specific Variations:** While the basic ADB commands (like `setprop debug.hwui.renderer skiavk`) are similar across devices, the specific apps that need to be force-stopped might vary.
+
+### Warnings for Non-S23 Devices
+
+If you try this on other devices:
+- Older processors may experience increased battery consumption and bugs.
+- AOSP ROMs (non-Samsung Android) are not recommended for some of these methods.
+- Not all apps will run properly under Vulkan on all devices.
+- The change will revert after rebooting, regardless of device type.
+
+The focus on S23 devices mainly reflects where the problem is most acute, rather than a technical limitation of the solution itself.
+
 ### Operating System Requirements
 
 - One UI 7 (based on Android 14)
