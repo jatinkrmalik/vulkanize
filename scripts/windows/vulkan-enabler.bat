@@ -4,21 +4,28 @@ setlocal enabledelayedexpansion
 :: S23 Vulkan Graphics Enabler for Windows
 :: This script forces Samsung S23 series devices to use Vulkan graphics API
 
+echo Starting S23 Vulkan Graphics Enabler...
+echo.
+
 :: Check if ADB is installed
+echo Checking for ADB installation...
 where adb >nul 2>&1
 if %errorlevel% neq 0 (
     echo ADB not found in PATH. Attempting to install...
     
     :: Try using winget to install ADB
+    echo Checking for Windows Package Manager (winget)...
     where winget >nul 2>&1
     if !errorlevel! equ 0 (
         echo Found Windows Package Manager. Attempting to install Android Platform Tools...
         echo This may take a few moments...
         
         :: Try to install Google.AndroidSDK.PlatformTools package
-        winget install Google.AndroidSDK.PlatformTools --accept-source-agreements --accept-package-agreements >nul 2>&1
+        echo Running: winget install Google.AndroidSDK.PlatformTools
+        winget install Google.AndroidSDK.PlatformTools --accept-source-agreements --accept-package-agreements
         
         :: Check if installation was successful
+        echo Checking if ADB was installed successfully...
         where adb >nul 2>&1
         if !errorlevel! equ 0 (
             echo Android Platform Tools installed successfully!
@@ -40,8 +47,11 @@ if %errorlevel% neq 0 (
     echo 4. Add the folder to your PATH environment variable
     echo 5. Run this script again
     echo.
-    pause
+    echo Press any key to exit...
+    pause >nul
     exit /b 1
+) else (
+    echo ADB is already installed. Continuing...
 )
 
 :ADB_INSTALLED
@@ -107,12 +117,14 @@ if %errorlevel% equ 0 (
     echo Device connected successfully!
     echo.
     adb devices
+    set DEVICE_CONNECTED=1
 ) else (
     echo No device found or not authorized.
     echo Please ensure:
     echo  - USB debugging is enabled on your phone
     echo  - The device is connected via USB
     echo  - You've authorized the computer on your device
+    set DEVICE_CONNECTED=0
 )
 if %LOGGING%==1 (
     echo [%date% %time%] Device check performed >> "%LOG_FILE%"
@@ -123,19 +135,42 @@ goto MENU
 
 :NORMAL
 cls
+call :CHECK_DEVICE_BEFORE_ACTION
+if %DEVICE_CONNECTED%==0 goto MENU
 call :RUNVULKAN normal
 goto MENU
 
 :AGGRESSIVE
 cls
+call :CHECK_DEVICE_BEFORE_ACTION
+if %DEVICE_CONNECTED%==0 goto MENU
 call :RUNVULKAN aggressive
 goto MENU
 
+:CHECK_DEVICE_BEFORE_ACTION
+echo Checking device connection before proceeding...
+adb devices | findstr "device$" >nul
+if %errorlevel% equ 0 (
+    set DEVICE_CONNECTED=1
+    return 0
+) else (
+    echo No device found or not authorized.
+    echo Please connect your device first.
+    echo.
+    set DEVICE_CONNECTED=0
+    if %SIMPLE_MODE%==0 pause
+    return 1
+)
+
 :RUN_NORMAL
+call :CHECK_DEVICE_BEFORE_ACTION
+if %DEVICE_CONNECTED%==0 goto EXIT
 call :RUNVULKAN normal
 goto EXIT
 
 :RUN_AGGRESSIVE
+call :CHECK_DEVICE_BEFORE_ACTION
+if %DEVICE_CONNECTED%==0 goto EXIT
 call :RUNVULKAN aggressive
 goto EXIT
 
@@ -146,22 +181,30 @@ if %LOGGING%==1 (
 )
 echo.
 echo Setting HWUI renderer to skiavk...
-adb shell setprop debug.hwui.renderer skiavk
+adb shell setprop debug.hwui.renderer skiavk >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Error: Failed to set Vulkan property. Make sure your device is properly connected.
+    if %LOGGING%==1 (
+        echo [%date% %time%] Error: Failed to set Vulkan property >> "%LOG_FILE%"
+    )
+    if %SIMPLE_MODE%==0 pause
+    goto :EOF
+)
 if %LOGGING%==1 (
     echo [%date% %time%] Set property debug.hwui.renderer to skiavk >> "%LOG_FILE%"
 )
 
 echo Forcing crash: System UI
-adb shell am crash com.android.systemui
+adb shell am crash com.android.systemui >nul 2>&1
 
 echo Forcing stop: Settings
-adb shell am force-stop com.android.settings
+adb shell am force-stop com.android.settings >nul 2>&1
 
 echo Forcing stop: Samsung Launcher
-adb shell am force-stop com.sec.android.app.launcher
+adb shell am force-stop com.sec.android.app.launcher >nul 2>&1
 
 echo Forcing stop: AOD Service
-adb shell am force-stop com.samsung.android.app.aodservice
+adb shell am force-stop com.samsung.android.app.aodservice >nul 2>&1
 
 if "%~1"=="aggressive" (
     echo.
@@ -169,7 +212,7 @@ if "%~1"=="aggressive" (
     adb shell pm list packages | findstr "com.google.android.inputmethod.latin" >nul
     if !errorlevel! equ 0 (
         echo Forcing crash: Gboard
-        adb shell am crash com.google.android.inputmethod.latin
+        adb shell am crash com.google.android.inputmethod.latin >nul 2>&1
         if %LOGGING%==1 (
             echo [%date% %time%] Forced crash: Gboard >> "%LOG_FILE%"
         )
@@ -254,5 +297,10 @@ if %LOGGING%==1 (
     echo [%date% %time%] Script execution ended >> "%LOG_FILE%"
 )
 echo Thank you for using S23 Vulkan Graphics Enabler!
+
+:: Prevent the script from closing immediately when run directly
+echo.
+echo Press any key to exit...
+pause >nul
 endlocal
 exit /b 0
