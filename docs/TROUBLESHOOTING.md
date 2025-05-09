@@ -16,7 +16,11 @@ This document provides solutions to common issues you might encounter when using
 ### ADB Not Installing Automatically
 
 **Windows:**
-- Try installing ADB manually by downloading from [Google's platform tools page](https://developer.android.com/studio/releases/platform-tools)
+- If automatic installation using winget fails:
+  - Make sure you have Windows Package Manager (winget) installed
+  - Try running the script as administrator
+  - Check your internet connection
+  - Try installing ADB manually by downloading from [Google's platform tools page](https://developer.android.com/studio/releases/platform-tools)
 - Check if you have administrator privileges
 - Temporarily disable antivirus software
 - Check if Windows Defender is blocking the download/execution

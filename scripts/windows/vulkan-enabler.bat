@@ -7,11 +7,44 @@ setlocal enabledelayedexpansion
 :: Check if ADB is installed
 where adb >nul 2>&1
 if %errorlevel% neq 0 (
-    echo ADB not found in PATH. Please install Android Platform Tools.
-    echo Visit: https://developer.android.com/studio/releases/platform-tools
+    echo ADB not found in PATH. Attempting to install...
+    
+    :: Try using winget to install ADB
+    where winget >nul 2>&1
+    if !errorlevel! equ 0 (
+        echo Found Windows Package Manager. Attempting to install Android Platform Tools...
+        echo This may take a few moments...
+        
+        :: Try to install Google.AndroidSDK.PlatformTools package
+        winget install Google.AndroidSDK.PlatformTools --accept-source-agreements --accept-package-agreements >nul 2>&1
+        
+        :: Check if installation was successful
+        where adb >nul 2>&1
+        if !errorlevel! equ 0 (
+            echo Android Platform Tools installed successfully!
+            echo.
+            goto ADB_INSTALLED
+        ) else (
+            echo Automatic installation failed.
+        )
+    ) else (
+        echo Windows Package Manager (winget) not found.
+    )
+    
+    :: If automatic installation failed, show manual instructions
+    echo.
+    echo Please install Android Platform Tools manually:
+    echo 1. Visit: https://developer.android.com/studio/releases/platform-tools
+    echo 2. Download the platform-tools package for Windows
+    echo 3. Extract the ZIP file to a folder (e.g., C:\platform-tools)
+    echo 4. Add the folder to your PATH environment variable
+    echo 5. Run this script again
+    echo.
     pause
     exit /b 1
 )
+
+:ADB_INSTALLED
 
 :: Command-line mode detection
 set SIMPLE_MODE=0

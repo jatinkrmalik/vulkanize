@@ -41,7 +41,8 @@ Vulkanize is a cross-platform utility that enables Vulkan graphics rendering on 
 1. Connect your device via USB cable
 2. Enable USB debugging on your device
 3. Run `vulkan-enabler.bat` by double-clicking on it
-4. Follow the on-screen instructions
+4. If ADB is not found, the script will attempt to install it automatically using Windows Package Manager (winget)
+5. Follow the on-screen instructions
 
 ### macOS
 
