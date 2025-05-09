@@ -73,4 +73,4 @@ git push origin "v$VERSION"
 
 echo -e "${GREEN}Release v$VERSION created and pushed to GitHub${NC}"
 echo "The GitHub Actions workflow will now automatically build and publish the release."
-echo "You can monitor the progress at: https://github.com/[jatinkrmalik]/vulkanize/actions"
+echo "You can monitor the progress at: https://github.com/jatinkrmalik/vulkanize/actions"
