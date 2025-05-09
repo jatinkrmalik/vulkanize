@@ -54,9 +54,6 @@ git pull
 # Update version references in files
 echo -e "${GREEN}Updating version references...${NC}"
 
-# Update README.md badge
-sed -i "s|/release/v[0-9]\+\.[0-9]\+\.[0-9]\+\.svg|/release/v$VERSION.svg|g" README.md
-
 # Update releases/README.md
 sed -i "s|### v[0-9]\+\.[0-9]\+\.[0-9]\+ (Upcoming)|### v$VERSION ($(date +'%B %d, %Y'))|g" releases/README.md
 

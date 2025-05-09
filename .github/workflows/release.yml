@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up environment
         run: |
@@ -73,7 +73,7 @@ jobs:
           echo "Release ${{ env.VERSION }} created at $(date)" >> releases/RELEASE_HISTORY.md
           
       - name: Commit updated release history
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update release history for ${{ env.VERSION }}"
           file_pattern: releases/RELEASE_HISTORY.md
