@@ -16,20 +16,23 @@ This document provides solutions to common issues you might encounter when using
 ### ADB Not Installing Automatically
 
 **Windows:**
-- If automatic installation using winget fails:
-  - Make sure you have Windows Package Manager (winget) installed
-  - Try running the script as administrator
-  - Check your internet connection
-- If direct download method fails:
+- If the direct download method fails:
   - Ensure your computer has internet access
   - Make sure Windows Defender or other security software is not blocking downloads
   - Try running the script as administrator
-  - Ensure PowerShell is available on your system
-  - Try setting your PowerShell execution policy to allow scripts: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
-- If all automatic methods fail:
-  - Try installing ADB manually by downloading from [Google's platform tools page](https://developer.android.com/studio/releases/platform-tools)
-  - Restart your computer after adding ADB to the PATH
-  - Temporarily disable antivirus software
+  - Ensure PowerShell is available on your system (installed by default on Windows 10 and 11)
+  - If PowerShell script execution is restricted, try: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+
+- If you're using the manual installation approach:
+  - Ensure you extract the entire platform-tools folder from the ZIP file
+  - When adding to PATH, use the full path to the folder (e.g., `C:\Users\YourName\Downloads\platform-tools`)
+  - After adding to PATH, restart any Command Prompt windows
+  - Alternatively, copy the script directly to the platform-tools folder and run it from there
+  
+- General troubleshooting:
+  - Try restarting your computer after installing ADB or modifying PATH
+  - Temporarily disable antivirus software if it might be interfering
+  - If everything else fails, copy the vulkan-enabler.bat script to your platform-tools folder and run it from there
 
 **macOS:**
 - If Homebrew installation fails, try updating Homebrew first: `brew update`

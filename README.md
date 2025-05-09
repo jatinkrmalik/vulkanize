@@ -42,9 +42,9 @@ Vulkanize is a cross-platform utility that enables Vulkan graphics rendering on 
 2. Enable USB debugging on your device
 3. Run `vulkan-enabler.bat` by double-clicking on it
 4. If ADB is not found, the script will:
-   - First attempt to install it automatically using Windows Package Manager (winget)
-   - If winget is not available, offer to download and install ADB directly from Google's official site
-   - As a last resort, provide manual installation instructions
+   - Offer to download and install ADB directly from Google's official site
+   - Or provide detailed manual installation instructions, including how to add platform-tools to PATH
+   - Alternatively, you can copy the script into the platform-tools folder and run it from there
 5. Follow the on-screen instructions
 
 ### macOS

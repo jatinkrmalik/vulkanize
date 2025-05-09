@@ -37,11 +37,25 @@ Before installing Vulkanize, ensure you have:
 2. Extract the archive to a location of your choice
 3. Connect your device via USB
 4. Run the `vulkan-enabler.bat` file by double-clicking on it
-5. The script will automatically check for ADB and use one of these methods (in order):
-   - Install ADB using Windows Package Manager (winget) if available
+5. The script will automatically check for ADB and use one of these methods:
    - Offer to download and install ADB directly from Google's official site
-   - Provide instructions for manual installation if automated methods fail
-6. Follow the on-screen prompts
+   - If automated download fails or is declined, provide detailed instructions for manual installation
+
+#### Alternative Methods for ADB Installation
+
+If the automatic download doesn't work, you have two simple options:
+
+1. **Add platform-tools to PATH** (recommended for long-term use):
+   - Download and extract platform-tools from Google's official site
+   - Add the extracted folder to your system PATH
+   - Run the script from any location
+
+2. **Run the script from platform-tools folder** (simpler approach):
+   - Download and extract platform-tools from Google's official site
+   - Copy `vulkan-enabler.bat` to the extracted platform-tools folder
+   - Run the script directly from there
+
+Both methods are explained in detail within the script itself.
 
 ## macOS Installation
 

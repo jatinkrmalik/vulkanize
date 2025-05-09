@@ -13,31 +13,6 @@ where adb >nul 2>&1
 if %errorlevel% neq 0 (
     echo ADB not found in PATH. Attempting to install...
     
-    :: Try using winget to install ADB
-    echo Checking for Windows Package Manager (winget)...
-    where winget >nul 2>&1
-    if !errorlevel! equ 0 (
-        echo Found Windows Package Manager. Attempting to install Android Platform Tools...
-        echo This may take a few moments...
-        
-        :: Try to install Google.AndroidSDK.PlatformTools package
-        echo Running: winget install Google.AndroidSDK.PlatformTools
-        winget install Google.AndroidSDK.PlatformTools --accept-source-agreements --accept-package-agreements
-        
-        :: Check if installation was successful
-        echo Checking if ADB was installed successfully...
-        where adb >nul 2>&1
-        if !errorlevel! equ 0 (
-            echo Android Platform Tools installed successfully!
-            echo.
-            goto ADB_INSTALLED
-        ) else (
-            echo Automatic installation via winget failed.
-        )
-    ) else (
-        echo Windows Package Manager (winget) not found.
-    )
-    
     :: Try direct download method
     echo.
     echo Would you like to automatically download and install Android Platform Tools? (Y/N)
@@ -63,8 +38,16 @@ if %errorlevel% neq 0 (
     echo 1. Visit: https://developer.android.com/studio/releases/platform-tools
     echo 2. Download the platform-tools package for Windows
     echo 3. Extract the ZIP file to a folder (e.g., C:\platform-tools)
-    echo 4. Add the folder to your PATH environment variable
-    echo 5. Run this script again
+    echo 4. Either:
+    echo    a) Add the folder to your PATH environment variable:
+    echo       - Right-click on 'This PC' or 'My Computer'
+    echo       - Select 'Properties' -^> 'Advanced system settings'
+    echo       - Click 'Environment Variables'
+    echo       - Under 'System variables', find and select 'Path'
+    echo       - Click 'Edit' -^> 'New' and add the path to the platform-tools folder
+    echo       - Click 'OK' on all dialogs and restart this script
+    echo    OR
+    echo    b) Copy this script to the extracted platform-tools folder and run it from there
     echo.
     echo Press any key to exit...
     pause >nul
