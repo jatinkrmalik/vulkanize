@@ -1,0 +1,80 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: Create Release Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up environment
+        run: |
+          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+          echo "Creating release packages for ${{ github.ref }}"
+
+      - name: Make scripts executable
+        run: |
+          chmod +x scripts/mac/vulkan-enabler.sh
+          chmod +x scripts/linux/vulkan-enabler.sh
+
+      - name: Create Windows package
+        run: |
+          mkdir -p windows-release/vulkanize
+          cp -r scripts/windows/* windows-release/vulkanize/
+          cp README.md LICENSE windows-release/vulkanize/
+          cp -r docs windows-release/vulkanize/
+          cd windows-release
+          zip -r ../vulkanize-windows-${{ env.VERSION }}.zip vulkanize
+
+      - name: Create macOS package
+        run: |
+          mkdir -p macos-release/vulkanize
+          cp -r scripts/mac/* macos-release/vulkanize/
+          cp README.md LICENSE macos-release/vulkanize/
+          cp -r docs macos-release/vulkanize/
+          cd macos-release
+          zip -r ../vulkanize-macos-${{ env.VERSION }}.zip vulkanize
+
+      - name: Create Linux package
+        run: |
+          mkdir -p linux-release/vulkanize
+          cp -r scripts/linux/* linux-release/vulkanize/
+          cp README.md LICENSE linux-release/vulkanize/
+          cp -r docs linux-release/vulkanize/
+          cd linux-release
+          zip -r ../vulkanize-linux-${{ env.VERSION }}.zip vulkanize
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Vulkanize ${{ env.VERSION }}
+          draft: false
+          prerelease: false
+          files: |
+            vulkanize-windows-${{ env.VERSION }}.zip
+            vulkanize-macos-${{ env.VERSION }}.zip
+            vulkanize-linux-${{ env.VERSION }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload release packages to release folder
+        run: |
+          mkdir -p releases/${{ env.VERSION }}
+          cp vulkanize-windows-${{ env.VERSION }}.zip releases/${{ env.VERSION }}/
+          cp vulkanize-macos-${{ env.VERSION }}.zip releases/${{ env.VERSION }}/
+          cp vulkanize-linux-${{ env.VERSION }}.zip releases/${{ env.VERSION }}/
+          echo "Release ${{ env.VERSION }} created at $(date)" >> releases/RELEASE_HISTORY.md
+          
+      - name: Commit updated release history
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update release history for ${{ env.VERSION }}"
+          file_pattern: releases/RELEASE_HISTORY.md
+          branch: main
