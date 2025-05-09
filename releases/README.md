@@ -17,7 +17,7 @@ Each release includes:
 
 ## Release Notes
 
-### v1.0.0 (Upcoming)
+### v1.0.0 (May 08, 2025)
 
 Initial release with basic functionality:
 - Cross-platform support (Windows, macOS, Linux)
