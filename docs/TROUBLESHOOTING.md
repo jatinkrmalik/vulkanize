@@ -35,14 +35,31 @@ This document provides solutions to common issues you might encounter when using
   - If everything else fails, copy the vulkan-enabler.bat script to your platform-tools folder and run it from there
 
 **macOS:**
-- If Homebrew installation fails, try updating Homebrew first: `brew update`
-- Check if you have write permissions in `/usr/local`
-- Try using sudo: `sudo brew install android-platform-tools`
+- If Homebrew installation fails:
+  - Check internet connectivity
+  - Try running the script with sudo: `sudo ./vulkan-enabler.sh`
+  - If Homebrew is installed but ADB installation fails, try manually: `brew install android-platform-tools`
+  - If you get "command not found" after Homebrew installation, restart your terminal or run: `export PATH="/opt/homebrew/bin:$PATH"` (for Apple Silicon) or `export PATH="/usr/local/bin:$PATH"` (for Intel Macs)
+- If ADB is installed but not found, try adding it to your PATH manually:
+  - For zsh (default on newer macOS): `echo 'export PATH="/opt/homebrew/bin:$PATH"' >> ~/.zshrc` then restart terminal
+  - For bash: `echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile` then restart terminal
 
 **Linux:**
-- Make sure your repositories are up to date: `sudo apt-get update` or equivalent
-- Check if you have sudo privileges
-- Try using a different package manager command as specified in the error message
+- Common installation issues on Linux:
+  - Missing dependencies: Try `sudo apt-get install -y android-sdk-platform-tools-common android-tools-adb` (Debian/Ubuntu)
+  - Permission issues: Scripts might need execution permission with `chmod +x vulkan-enabler.sh`
+  - If you get "no permissions" errors with ADB, you may need udev rules:
+    ```bash
+    echo 'SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="plugdev"' | sudo tee /etc/udev/rules.d/51-android.rules
+    sudo chmod a+r /etc/udev/rules.d/51-android.rules
+    sudo udevadm control --reload-rules
+    sudo udevadm trigger
+    ```
+  - Package manager conflicts: If you have conflicting ADB packages, try `sudo apt-get remove android-tools-adb adb` then reinstall
+  - Multiple desktop environments: If you use multiple desktop environments (GNOME, KDE, etc.), auto-mounting behavior might interfere with ADB
+  - Shell compatibility: If your default shell isn't bash, try running with `bash ./vulkan-enabler.sh`
+  - Firewall issues: Some firewalls might block ADB, check your firewall settings
+- The improved script can now handle more Linux distributions including Ubuntu, Fedora, Arch, openSUSE, and Gentoo
 
 ### Script Execution Permission Denied
 
@@ -60,29 +77,44 @@ This document provides solutions to common issues you might encounter when using
 
 1. **Check USB Debugging:**
    - Make sure USB debugging is enabled in Developer options
+   - Navigate to Settings > About phone > Software information
+   - Tap "Build number" 7 times to enable Developer options
+   - Go to Settings > Developer options and enable "USB debugging"
    - Try toggling it off and on again
 
 2. **Check USB Connection:**
    - Try a different USB cable (preferably the original one that came with the device)
    - Try a different USB port on your computer
    - If using a USB hub, try connecting directly to your computer
+   - Make sure your phone screen is unlocked when connecting
 
-3. **Check Device Drivers (Windows):**
-   - Open Device Manager
-   - Look for any devices with warning icons
-   - Install Samsung USB drivers if needed
+3. **Check Device Drivers:**
+   - **Windows:** Open Device Manager and look for any devices with warning icons
+   - **Windows:** Install Samsung USB drivers if needed from Samsung's website
+   - **macOS:** Samsung devices typically work without additional drivers
+   - **Linux:** Try `sudo apt install android-sdk-platform-tools-common` (Ubuntu/Debian) or equivalent
 
-4. **Verify ADB Sees the Device:**
+4. **Verify ADB Setup and Access:**
    - Open a terminal/command prompt and run: `adb devices`
-   - If you see your device with "unauthorized", disconnect and reconnect while watching your phone screen for the authorization dialog
-
-5. **Restart ADB Server:**
-   - Run the following commands:
+   - If no devices are shown, restart the ADB server with:
      ```
      adb kill-server
      adb start-server
      adb devices
      ```
+   - If you see your device with "unauthorized", look at your phone screen for the authorization prompt
+   - If no authorization prompt appears, revoke USB debugging authorizations in Developer options and try again
+
+5. **Phone-side Troubleshooting:**
+   - Try different USB modes (File Transfer/MTP, PTP, etc.)
+   - Navigate to Developer options and try toggling "Default USB configuration"
+   - Disconnect, turn off USB debugging, reconnect, then enable USB debugging
+   - Restart your phone and try again
+
+6. **Check for System Conflicts:**
+   - **Windows:** Check if other Android device management tools are running (Samsung Kies, Smart Switch)
+   - **macOS:** Check Activity Monitor for processes that might interfere with ADB
+   - **Linux:** Check if ADB is already running: `ps aux | grep adb`
 
 ### Multiple Devices Detected
 

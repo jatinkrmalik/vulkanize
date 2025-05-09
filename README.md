@@ -20,6 +20,26 @@ Vulkanize is a cross-platform utility that enables Vulkan graphics rendering on 
 - Vulkan verification guidance
 - Detailed logging for troubleshooting
 
+## 🆕 Latest Enhancements
+
+- **Improved macOS Support**:
+  - Automatic Homebrew installation with proper PATH configuration
+  - Support for both Intel and Apple Silicon Macs
+  - Better shell detection and configuration (zsh/bash)
+  - Enhanced ADB installation error handling
+
+- **Expanded Linux Compatibility**:
+  - Multi-distribution support (Ubuntu, Debian, Fedora, Arch, openSUSE, Gentoo)
+  - Automatic udev rules configuration for Android devices
+  - More robust ADB installation across package managers
+  - Better user permission handling
+
+- **Enhanced Device Detection**:
+  - Smart ADB server management
+  - Improved unauthorized device handling
+  - Device model verification to confirm S23 compatibility
+  - Better ADB communication troubleshooting
+
 ## 📋 Requirements
 
 - Samsung S23, S23+, S23 Ultra, or S23 FE device
@@ -54,7 +74,11 @@ Vulkanize is a cross-platform utility that enables Vulkan graphics rendering on 
 3. Open Terminal and navigate to the extracted folder
 4. Make the script executable: `chmod +x scripts/mac/vulkan-enabler.sh`
 5. Run the script: `./scripts/mac/vulkan-enabler.sh`
-6. Follow the on-screen instructions
+6. The script will:
+   - Check for Homebrew and offer to install it if missing
+   - Configure your shell profile automatically (zsh or bash)
+   - Install ADB via Homebrew if needed
+   - Guide you through the entire process with clear instructions
 
 ### Linux
 
@@ -63,7 +87,11 @@ Vulkanize is a cross-platform utility that enables Vulkan graphics rendering on 
 3. Open Terminal and navigate to the extracted folder
 4. Make the script executable: `chmod +x scripts/linux/vulkan-enabler.sh`
 5. Run the script: `./scripts/linux/vulkan-enabler.sh`
-6. Follow the on-screen instructions
+6. The script will:
+   - Detect your Linux distribution automatically
+   - Install ADB using the appropriate package manager
+   - Set up proper device permissions with udev rules if needed
+   - Provide comprehensive device detection and troubleshooting
 
 For more detailed installation instructions, see [INSTALLATION.md](docs/INSTALLATION.md).
 

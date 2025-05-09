@@ -88,7 +88,32 @@ vulkanize
    ```bash
    ./scripts/mac/vulkan-enabler.sh
    ```
-6. If prompted about ADB installation, select "Yes" to allow installation via Homebrew
+6. The script has enhanced capabilities to automatically install:
+   - Homebrew (if not found) - the package manager for macOS
+   - ADB (via Homebrew once installed)
+   - Additionally, it can automatically configure PATH settings in your shell profile
+
+### Automatic Environment Setup in macOS
+
+The enhanced macOS script now provides:
+
+1. **Fully Automated Homebrew Installation**:
+   - Detects if Homebrew is missing and offers to install it
+   - Automatically adds Homebrew to your PATH in the appropriate shell profile
+   - Works with both zsh (default on newer macOS) and bash
+   - Supports both Intel and Apple Silicon Macs
+
+2. **Intelligent Shell Detection**:
+   - Identifies which shell you're using (zsh or bash)
+   - Modifies the correct configuration file (~/.zshrc or ~/.bash_profile)
+   - No manual PATH configuration needed
+
+3. **Enhanced ADB Installation**:
+   - Better error handling if ADB installation fails
+   - Provides troubleshooting steps for common issues
+   - Verifies ADB works after installation
+
+This means you can now run the script on a fresh macOS installation with minimal manual intervention.
 
 ## Linux Installation
 
@@ -119,7 +144,31 @@ vulkanize
    ```bash
    ./scripts/linux/vulkan-enabler.sh
    ```
-6. If prompted about ADB installation, select "Yes" to allow installation via your package manager
+
+### Enhanced Linux Script Features
+
+The improved Linux script now provides:
+
+1. **Multi-Distribution Support**:
+   - Automatically detects your Linux distribution (Ubuntu, Debian, Fedora, Arch, openSUSE, Gentoo)
+   - Uses the appropriate package manager for your system (apt, dnf, pacman, zypper, emerge)
+   - Provides fallback options for unsupported distributions
+
+2. **Automatic USB Access Configuration**:
+   - Detects when you don't have proper USB access permissions
+   - Offers to create udev rules for Android devices automatically
+   - Adds your user to the plugdev group for proper device access
+   - Reloads udev rules without requiring a system restart
+
+3. **Enhanced Troubleshooting**:
+   - Verifies Android device connectivity with detailed diagnostics
+   - Provides device-specific information and compatibility checks
+   - Includes verification tools to confirm Vulkan is properly enabled
+
+4. **Robust Error Handling**:
+   - Better package manager error detection and reporting
+   - Graceful handling of sudo password prompts
+   - Detailed logging of all operations for debugging
 
 ## Manual ADB Installation
 
